@@ -63,3 +63,15 @@ au BufNewFile,BufRead *.ejs set ft=html
 au BufNewFile,BufRead Gemfile,Rakefile,Capfile,capfile,*.pdf.prawn,*.rabl set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.less set ft=css
+
+
+set list
+set listchars=tab:+-,trail:-,extends:>,precedes:<
+
+au BufNewFile,BufRead *.scss,*.rb,*.yml,*.haml,*.erb set et ts=2 sw=2 sts=2
+au BufNewFile,BufRead *.js set et ts=2 sw=2 sts=2
+au BufNewFile,BufRead *.sh set et ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
+au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
+au BufNewFile,BufRead *.scss set ft=sass
+au BufNewFile,BufRead *.md syntax off

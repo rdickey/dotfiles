@@ -1,6 +1,6 @@
 [user]
-	name = Luke Ehresman
-	email = luke@ehresman.org
+	name = Ross Dickey
+	email = rdickey@copperegg.com
 	editor = vim
 [core]
 	editor = vim
@@ -21,4 +21,4 @@
 	status = auto
 	template = auto
 [github]
-	user = lehresman
+	user = rdickey
