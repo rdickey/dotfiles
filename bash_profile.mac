@@ -47,7 +47,7 @@ PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
 alias ls="ls -GF"
 alias sl="ls"
 alias l="ls -al"
-alias ll="ls -alF"
+alias ll="ls -alhF"
 
 [[ -s "$HOME/.bash_custom" ]] && source "$HOME/.bash_custom"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
