@@ -43,6 +43,7 @@ PROMPT_COMMAND='echo -ne "\033]0;$git_branch$USER@$HOSTNAME:$munged_path\007"'
 PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
 
 alias ls="ls --color -F"
+alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alF"
 

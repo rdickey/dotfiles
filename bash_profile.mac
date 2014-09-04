@@ -44,7 +44,8 @@ PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w}\$${RS} "
 PROMPT_COMMAND='echo -ne "\033]0;$git_branch$USER@$HOSTNAME:$munged_path\007"'
 PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
 
-alias ls="ls -F"
+alias ls="ls -GF"
+alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alF"
 
