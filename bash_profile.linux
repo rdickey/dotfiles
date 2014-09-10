@@ -26,18 +26,18 @@ function munge_path {
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-	# include .bashrc if it exists
-	if [ -f "$HOME/.bashrc" ]; then
-		. "$HOME/.bashrc"
-	fi
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
 fi
 
 # colors found at http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
 # ref: http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-RS="\[\033[0m\]"    # reset
+    RS="\[\033[0m\]"    # reset
 BRANCH="\[\033[1;34m\]"
     FG="\[\033[0;31m\]"
-FGB="\[\033[1;31m\]"
+   FGB="\[\033[1;31m\]"
 PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w}\$${RS} "
 PROMPT_COMMAND='echo -ne "\033]0;$git_branch$USER@$HOSTNAME:$munged_path\007"'
 PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
@@ -50,7 +50,5 @@ alias ll="ls -alhF"
 [[ -s "$HOME/.bash_custom" ]] && source "$HOME/.bash_custom"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-[[ -s "$HOME/.bash_custom" ]] && source "$HOME/.bash_custom"
 
 ssh-add $HOME/.ssh/*pem >/dev/null 2>&1

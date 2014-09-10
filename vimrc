@@ -48,13 +48,13 @@ au BufNewFile,BufRead *.less set ft=css
 
 au BufNewFile,BufRead *.scss,*.rb,*.yml,*.haml,*.erb set et ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.js set et ts=2 sw=2 sts=2
-au BufNewFile,BufRead *.sh,*.py*,*.mac,*.linux set et ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.sh,*.py*,*.mac,*.linux,*.json set et ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
 au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.md syntax off
 
-au BufNewFile,BufRead *.mac,*.linux set syntax=sh
+au BufNewFile,BufRead *.mac,*.linux,*.json set syntax=sh
 
 
 inoremap <C-a> <Home>
