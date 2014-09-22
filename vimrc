@@ -54,7 +54,7 @@ au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.md syntax off
 
-au BufNewFile,BufRead *.mac,*.linux,*.json set syntax=sh
+au BufNewFile,BufRead *.mac,*.linux,*.json,.bashrc,.*profile set syntax=sh et ts=4 sw=4
 
 
 inoremap <C-a> <Home>

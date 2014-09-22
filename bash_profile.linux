@@ -8,12 +8,24 @@ function find_git_branch {
         if [ -f "$dir/.git/HEAD" ]; then
             head=$(< "$dir/.git/HEAD")
             if [[ $head == ref:\ refs/heads/* ]]; then
-                git_branch="${head#*/*/} "
+                git_branch="${head#*/*/}"
             elif [[ $head != '' ]]; then
-                git_branch='(detached) '
+                git_branch='(detached)'
             else
-                git_branch='(unknown) '
+                git_branch='(unknown)'
             fi
+
+            # requires the following .gitconfig alias:
+            # unpushed = !GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log origin/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline
+            if [[ -n $(git branch   2> /dev/null) ]] && [[ -n $(git unpushed 2> /dev/null) ]]; then
+                git_branch="${git_branch}(`git unpushed | wc -l | tr -d ' \n'`)"
+            fi
+
+            if [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]]; then
+                git_branch="${git_branch}*"
+            fi
+
+            git_branch="$git_branch "
             return
         fi
         dir="../$dir"
