@@ -50,7 +50,7 @@ fi
 BRANCH="\[\033[1;34m\]"
     FG="\[\033[0;31m\]"
    FGB="\[\033[1;31m\]"
-PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w}\$${RS} "
+PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w${FGB}}\$${RS} "
 PROMPT_COMMAND='echo -ne "\033]0;$git_branch$USER@$HOSTNAME:$munged_path\007"'
 PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
 
