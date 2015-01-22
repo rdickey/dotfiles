@@ -58,6 +58,7 @@ alias ls="ls --color -F"
 alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alhF"
+[[ -n "`which vim`" ]] && alias vi="vim"
 
 alias fuck='sudo $(history -p \!\!)'
 alias ffs='sudo $(history -p \!\!)'

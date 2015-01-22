@@ -60,6 +60,7 @@ alias ls="ls -GF"
 alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alhF"
+[[ -n "`which vim`" ]] && alias vi="vim"
 
 alias grep="egrep --color"
 alias egrep="egrep --color"
