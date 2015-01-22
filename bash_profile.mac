@@ -61,6 +61,9 @@ alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alhF"
 
+alias grep="egrep --color"
+alias egrep="egrep --color"
+
 alias fuck='sudo $(history -p \!\!)'
 alias ffs='sudo $(history -p \!\!)'
 
@@ -68,4 +71,5 @@ alias ffs='sudo $(history -p \!\!)'
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-ssh-add $HOME/.ssh/*pem >/dev/null 2>&1
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

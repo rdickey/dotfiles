@@ -20,7 +20,7 @@ set ruler
 set tabstop=4
 set noexpandtab
 set showmatch
-set nowrap
+set wrap
 set wildmenu
 set nocindent
 set restorescreen
@@ -39,8 +39,9 @@ colorscheme luke
 syntax sync minlines=1000
 
 au BufNewFile,BufRead *.php,*.php3,*.inc  set ft=php
-au BufNewFile,BufRead *.txt set et ts=4 tw=80
-au BufNewFile,BufRead *.js,*.html,*.htm,*.less,*.scss,*.sass,*.rb,*.yml,*.haml,*.erb,*.ejs,*.rake,*.markdown set et ts=2 sw=2 sts=2
+"au BufNewFile,BufRead *.txt set et ts=4 tw=80
+au BufNewFile,BufRead *.txt set et ts=4
+au BufNewFile,BufRead *.js,*.html,*.htm,*.less,*.scss,*.sass,*.rb,*.yml,*.haml,*.erb,*.ejs,*.rake,*.markdown,*.json set et syntax=javascript ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.jst.ejs.erb set ft=html
 au BufNewFile,BufRead Gemfile,Rakefile,Capfile,capfile,*.pdf.prawn,*.rabl,*.ruby,*.god,*.cap set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
@@ -48,13 +49,13 @@ au BufNewFile,BufRead *.less set ft=css
 
 au BufNewFile,BufRead *.scss,*.rb,*.yml,*.haml,*.erb set et ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.js set et ts=2 sw=2 sts=2
-au BufNewFile,BufRead *.sh,*.py*,*.mac,*.linux,*.json set et ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.sh,*.py*,*.mac,*.linux set et ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
 au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.md syntax off
 
-au BufNewFile,BufRead *.mac,*.linux,*.json,.bashrc,.*profile set syntax=sh et ts=4 sw=4
+au BufNewFile,BufRead *.mac,*.linux,.bashrc,.*profile,.bash* set syntax=sh et ts=4 sw=4
 
 
 inoremap <C-a> <Home>
