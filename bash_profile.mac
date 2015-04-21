@@ -3,6 +3,7 @@
 export PATH=$HOME/bin:$PATH
 export EDITOR="/usr/bin/vim"
 export LSCOLORS="cxgxcbdbdxegeddxdxcxcx"
+export HISTFILESIZE=1048576
 
 function find_git_branch {
     local dir=. head
@@ -36,6 +37,21 @@ function find_git_branch {
 }
 function munge_path {
     munged_path=`ruby -e "y='$PWD'.sub('$HOME','~');x='';p=y.split('/');x+='.../' if p.length > 4; x+=p[[0,p.length-4].max,p.length].join('/');x+='/' if p.length==0;if x.length < y.length then print x; else print y; end;"`
+}
+
+
+function go {
+    ssh -oUser=ec2-user $* || ssh -oUser=ubuntu $*
+}
+
+function goo {
+    while true; do date;go $1; sleep 1; done
+}
+
+function goi {
+    ip=`echo $1 | egrep -o '[0-9]+-[0-9]+-[0-9]+-[0-9]+' | sed -e 's/-/./g'`
+    echo "Connecting to ip $ip"
+    go $ip
 }
 
 # if running bash
