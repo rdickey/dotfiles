@@ -1,5 +1,6 @@
-. /etc/profile
+# TODO: combine the common parts of bash_profile.linux and bash_profile.mac and only have the small differences in each
 
+. /etc/profile
 export PATH=$HOME/bin:$PATH
 export EDITOR="/usr/bin/vim"
 export LSCOLORS="cxgxcbdbdxegeddxdxcxcx"
@@ -36,7 +37,15 @@ function find_git_branch {
     git_branch=''
 }
 function munge_path {
-    munged_path=`ruby -e "y='$PWD'.sub('$HOME','~');x='';p=y.split('/');x+='.../' if p.length > 4; x+=p[[0,p.length-4].max,p.length].join('/');x+='/' if p.length==0;if x.length < y.length then print x; else print y; end;"`
+    if [ -n `which ruby` ]; then
+        munged_path=`ruby -e "y='$PWD'.sub('$HOME','~');x='';p=y.split('/');x+='.../' if p.length > 4; x+=p[[0,p.length-4].max,p.length].join('/');x+='/' if p.length==0;if x.length < y.length then print x; else print y; end;"`
+        # TODO: rewrite this to not use ruby.  hints:
+        # echo $name | egrep -o '/' | wc -w
+        # echo $name | cut -d '/' -f 5-7
+    else
+        munged_path=$PWD
+        [[ "$munged_path" =~ ^"$HOME"(/|$) ]] && munged_path="~${name#$HOME}"
+    fi
 }
 
 
@@ -68,7 +77,12 @@ fi
 BRANCH="\[\033[1;34m\]"
     FG="\[\033[0;31m\]"
    FGB="\[\033[1;31m\]"
-PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w${FGB}}\$${RS} "
+if [ "$USER" = "root" ]; then
+    SEP='#'
+else
+    SEP='$'
+fi
+PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w${FGB}}${SEP}${RS} "
 PROMPT_COMMAND='echo -ne "\033]0;$git_branch$USER@$HOSTNAME:$munged_path\007"'
 PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
 
@@ -76,10 +90,13 @@ alias ls="ls -GF"
 alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alhF"
-[[ -n "`which vim`" ]] && alias vi="vim"
+[[ -n "`which vim`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
 
 alias grep="egrep --color"
 alias egrep="egrep --color"
+# This is a hack so that things like "sudo vi" will evaluate as "sudo vim".
+# Otherwise, bash would only evaluate the alias for sudo (if any), not whatever came after it.
+alias sudo="sudo "
 
 alias fuck='sudo $(history -p \!\!)'
 alias ffs='sudo $(history -p \!\!)'
