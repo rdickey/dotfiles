@@ -36,7 +36,7 @@ function find_git_branch {
     git_branch=''
 }
 function munge_path {
-    if [ -n `which ruby` ]; then
+    if [ -n "`which ruby 2>/dev/null`" ]; then
         munged_path=`ruby -e "y='$PWD'.sub('$HOME','~');x='';p=y.split('/');x+='.../' if p.length > 4; x+=p[[0,p.length-4].max,p.length].join('/');x+='/' if p.length==0;if x.length < y.length then print x; else print y; end;"`
         # TODO: rewrite this to not use ruby.  hints:
         # echo $name | egrep -o '/' | wc -w
@@ -89,7 +89,7 @@ alias ls="ls --color -F"
 alias sl="ls"
 alias l="ls -al"
 alias ll="ls -alhF"
-[[ -n "`which vim`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
+[[ -n "`which vim 2>/dev/null`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
 
 alias grep="egrep --color"
 alias egrep="egrep --color"
