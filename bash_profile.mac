@@ -108,5 +108,6 @@ alias ffs='sudo $(history -p \!\!)'
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-alias fixws="wmctrl -R Wireshark -e 0,100,300,1600,1000"
+#alias fixws="wmctrl -R Wireshark -e 0,100,300,1600,1000"
+alias fixws="wmctrl -R Wireshark -e 0,1000,1200,1600,1000"
 
