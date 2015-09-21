@@ -68,6 +68,14 @@ if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
         . "$HOME/.bashrc"
     fi
+    if [ -f "/etc/bash_completion" ] && ! shopt -oq posix; then
+        . "/etc/bash_completion"
+    fi
+    if [ -d "/etc/bash_completion.d"]; then
+        for f in `find "/etc/bash_completion.d/*"`; do
+            source "$f" 2>/dev/null
+        done
+    fi
 fi
 
 # colors found at http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
@@ -91,7 +99,7 @@ alias l="ls -al"
 alias ll="ls -alhF"
 [[ -n "`which vim 2>/dev/null`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
 
-alias grep="egrep --color"
+alias grep="egrep"
 alias egrep="egrep --color"
 # This is a hack so that things like "sudo vi" will evaluate as "sudo vim".
 # Otherwise, bash would only evaluate the alias for sudo (if any), not whatever came after it.
