@@ -71,8 +71,8 @@ if [ -n "$BASH_VERSION" ]; then
     if [ -f "/etc/bash_completion" ] && ! shopt -oq posix; then
         . "/etc/bash_completion"
     fi
-    if [ -d "/etc/bash_completion.d"]; then
-        for f in `find "/etc/bash_completion.d/*"`; do
+    if [ -d "/etc/bash_completion.d" ]; then
+        for f in `find /etc/bash_completion.d/*`; do
             source "$f" 2>/dev/null
         done
     fi
