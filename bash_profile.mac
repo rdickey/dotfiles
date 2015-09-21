@@ -1,6 +1,7 @@
 # TODO: combine the common parts of bash_profile.linux and bash_profile.mac and only have the small differences in each
 
 . /etc/profile
+[[ -f ~/.aws.sh ]] && . ~/.aws.sh
 export PATH=$HOME/bin:$PATH
 export EDITOR="/usr/bin/vim"
 export LSCOLORS="cxgxcbdbdxegeddxdxcxcx"
@@ -106,8 +107,12 @@ alias ffs='sudo $(history -p \!\!)'
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+[[ -d "/usr/local/heroku/bin" ]] && export PATH="/usr/local/heroku/bin:$PATH"
 
 #alias fixws="wmctrl -R Wireshark -e 0,100,300,1600,1000"
 alias fixws="wmctrl -R Wireshark -e 0,1000,1200,1600,1000"
+
+# MacPorts Installer addition
+[[ -d "/opt/local/bin" ]] && export PATH="/opt/local/sbin:$PATH"
+[[ -d "/opt/local/sbin" ]] && export PATH="/opt/local/bin:$PATH"
 
