@@ -93,7 +93,7 @@ alias l="ls -al"
 alias ll="ls -alhF"
 [[ -n "`which vim 2>/dev/null`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
 
-alias grep="egrep --color"
+alias grep="egrep"
 alias egrep="egrep --color"
 # This is a hack so that things like "sudo vi" will evaluate as "sudo vim".
 # Otherwise, bash would only evaluate the alias for sudo (if any), not whatever came after it.
