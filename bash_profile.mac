@@ -1,6 +1,6 @@
 # TODO: combine the common parts of bash_profile.linux and bash_profile.mac and only have the small differences in each
 
-. /etc/profile
+[[ -f /etc/profile ]] && . /etc/profile
 [[ -f ~/.aws.sh ]] && . ~/.aws.sh
 export PATH=$HOME/bin:$PATH
 export EDITOR="/usr/bin/vim"
@@ -51,10 +51,14 @@ function munge_path {
 
 
 function go {
-    ssh -oUser=ec2-user $* || ssh -oUser=ubuntu $*
+    ssh -oConnectTimeout=1 -oUser=ec2-user $* || ssh -oConnectTimeout=1 -oUser=ubuntu $*
 }
 
 function goo {
+    while true; do date;go $1 && return; sleep 1; done
+}
+
+function gooo {
     while true; do date;go $1; sleep 1; done
 }
 
@@ -116,3 +120,4 @@ alias fixws="wmctrl -R Wireshark -e 0,1000,1200,1600,1000"
 [[ -d "/opt/local/bin" ]] && export PATH="/opt/local/sbin:$PATH"
 [[ -d "/opt/local/sbin" ]] && export PATH="/opt/local/bin:$PATH"
 
+ssh-add $HOME/.ssh/*pem >/dev/null 2>&1

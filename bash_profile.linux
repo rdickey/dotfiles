@@ -1,5 +1,7 @@
 # TODO: combine the common parts of bash_profile.linux and bash_profile.mac and only have the small differences in each
 
+[[ -f /etc/profile ]] && . /etc/profile
+[[ -f ~/.aws.sh ]] && . ~/.aws.sh
 export PATH=$HOME/bin:$PATH
 export EDITOR="/usr/bin/vim"
 export LS_COLORS='no=00:fi=00:di=00;32:ln=00;36:pi=01;36:so=00;34:bd=33;01:cd=33;01:or=31;01:ex=00;33:*.tar=01;37:*.tgz=01;37:*.arj=01;37:*.taz=01;37:*.lzh=01;37:*.zip=01;37:*.z=01;37:*.Z=01;37:*.gz=01;37:*.deb=01;37:*.rpm=01;37:*.bz2=01;37:*.jpg=01;32:*.gif=01;32:*.png=01;32:*.bmp=01;32:*.ppm=01;32:*.tga=01;32:*.xbm=01;32:*.xpm=01;32:*.tif=01;32:*.mpg=01;32:*.avi=01;32:*.gl=01;32:*.dl=01;35:*.cc=01;32:*.cpp=01;32:*.py=01;32:*.java=01;32:*.h=00;32:*.c=01;32:*.o=00;37:*.pyc=00;37'
@@ -49,10 +51,14 @@ function munge_path {
 
 
 function go {
-    ssh -oUser=ec2-user $* || ssh -oUser=ubuntu $*
+    ssh -oConnectTimeout=1 -oUser=ec2-user $* || ssh -oConnectTimeout=1 -oUser=ubuntu $*
 }
 
 function goo {
+    while true; do date;go $1 && return; sleep 1; done
+}
+
+function gooo {
     while true; do date;go $1; sleep 1; done
 }
 
