@@ -42,6 +42,9 @@ func indent_detector#detect(autoadjust)
 			return 'default'
 		endif
 	else
+		if a:autoadjust
+			setl noexpandtab nosmarttab tabstop=4 shiftwidth=4 softtabstop=4
+		endif
 		return 'mixed'
 	endif
 endfunc
