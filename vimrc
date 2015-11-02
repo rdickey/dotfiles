@@ -34,8 +34,10 @@ set laststatus=2
 set noautochdir
 set ttimeoutlen=250
 
-syntax on
+syntax enable
+set background=dark
 colorscheme luke
+"colorscheme solarized
 syntax sync minlines=1000
 
 au BufNewFile,BufRead *.php,*.php3,*.inc  set ft=php
