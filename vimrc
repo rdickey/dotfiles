@@ -4,7 +4,7 @@ let g:ack_autoclose = 1
 let g:ackhighlight = 1
 let g:ackpreview = 0
 let g:ack_use_dispatch = 1
-let g:ack_default_options = " -s -H --nocolor --nogroup --column --smart-case --follow --type-set=LOG=.log --noLOG "
+let g:ack_default_options = " -s -H --nocolor --nogroup --column --follow --type-set=LOG=.log --noLOG "
 
 set clipboard=unnamed
 set nocompatible
@@ -25,8 +25,7 @@ set wildmenu
 set nocindent
 set restorescreen
 set shiftwidth=4
-set list
-set listchars=tab:+-,extends:>,precedes:<,trail:-
+set list listchars=tab:+-,extends:>,precedes:<,trail:-
 set scrolljump=1
 set showcmd
 set sidescrolloff=3
@@ -55,7 +54,7 @@ au BufNewFile,BufRead *.sh,*.py*,*.mac,*.linux set et ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
 au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
-au BufNewFile,BufRead *.md syntax off
+au BufNewFile,BufRead *.md set textwidth=72
 
 au BufNewFile,BufRead *.mac,*.linux,.bashrc,.*profile,.bash* set syntax=sh et ts=4 sw=4
 
@@ -74,31 +73,31 @@ noremap <silent> ,. :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<C
 " Vundle Setup
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+silent! call vundle#begin()
 " --> Have Vundle manage itself
-Plugin 'gmarik/Vundle.vim'
+silent! Plugin 'gmarik/Vundle.vim'
 " --> These are all for snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+silent! Plugin 'MarcWeber/vim-addon-mw-utils'
+silent! Plugin 'tomtom/tlib_vim'
+silent! Plugin 'garbas/vim-snipmate'
+silent! Plugin 'honza/vim-snippets'
 " --> The CtrlP plugin
-Plugin 'kien/ctrlp.vim'
+silent! Plugin 'kien/ctrlp.vim'
 " --> For block comments
-Plugin 'tomtom/tcomment_vim'
+silent! Plugin 'tomtom/tcomment_vim'
 " --> For Rails support
-Plugin 'tpope/vim-rails'
+silent! Plugin 'tpope/vim-rails'
 " --> For JavaScript support
-Plugin 'pangloss/vim-javascript'
+silent! Plugin 'pangloss/vim-javascript'
 " --> For jst/ejs support
-Plugin 'briancollins/vim-jst'
+silent! Plugin 'briancollins/vim-jst'
 " --> For changing the cwd to the project root
-Plugin 'airblade/vim-rooter'
+silent! Plugin 'airblade/vim-rooter'
 " --> For fuzzy finding
-Plugin 'mileszs/ack.vim'
+silent! Plugin 'mileszs/ack.vim'
 " --> For asynchronously running commands
-Plugin 'tpope/vim-dispatch'
-call vundle#end()
+silent! Plugin 'tpope/vim-dispatch'
+silent! call vundle#end()
 filetype plugin indent on
 
 " CTRL-P Configuration
