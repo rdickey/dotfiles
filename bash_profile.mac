@@ -2,7 +2,7 @@
 
 [[ -f /etc/profile ]] && . /etc/profile
 [[ -f ~/.aws.sh ]] && . ~/.aws.sh
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export EDITOR="/usr/bin/vim"
 export LSCOLORS="cxgxcbdbdxegeddxdxcxcx"
 export HISTFILESIZE=1048576
@@ -51,7 +51,9 @@ function munge_path {
 
 
 function go {
-    ssh -oConnectTimeout=1 -oUser=ec2-user $* || ssh -oConnectTimeout=1 -oUser=ubuntu $*
+    for U in ec2-user ubuntu centos root $USER; do
+        ssh -oConnectTimeout=1 -oUser=$U $* && return
+    done
 }
 
 function goo {
@@ -63,9 +65,23 @@ function gooo {
 }
 
 function goi {
-    ip=`echo $1 | egrep -o '[0-9]+-[0-9]+-[0-9]+-[0-9]+' | sed -e 's/-/./g'`
-    echo "Connecting to ip $ip"
-    go $ip
+    ip=`echo $1 | sed 's/ec2//' | egrep -o '[0-9]+-[0-9]+-[0-9]+-[0-9]+' | sed -e 's/-/./g'`
+    if [ -n "$ip" ]; then
+        echo "Connecting to ip $ip"
+        go $ip
+    else
+        echo "Could not get ip for $1.  Maybe it's ill formatted?"
+    fi
+}
+
+function goid {
+    hostname=`aws ec2 describe-instances --instance-ids $1 --output text | egrep INSTANCES | egrep -o 'ec2-.+amazonaws.com' | head -n 1`
+    if [ -n "$hostname" ]; then
+        echo "Connecting to hostname $hostname"
+        go $hostname
+    else
+        echo "Couldn't get hostname for id $1.  Maybe it died?"
+    fi
 }
 
 # if running bash
@@ -78,10 +94,10 @@ fi
 
 # colors found at http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
 # ref: http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-    RS="\[\033[0m\]"    # reset
-BRANCH="\[\033[1;34m\]"
-    FG="\[\033[0;31m\]"
-   FGB="\[\033[1;31m\]"
+true &&     RS="\[\033[0m\]"    # reset
+true && BRANCH="\[\033[1;34m\]"
+true &&     FG="\[\033[0;31m\]"
+true &&    FGB="\[\033[1;31m\]"
 if [ "$USER" = "root" ]; then
     SEP='#'
 else

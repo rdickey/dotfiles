@@ -98,6 +98,10 @@ silent! Plugin 'mileszs/ack.vim'
 " --> For asynchronously running commands
 silent! Plugin 'tpope/vim-dispatch'
 silent! call vundle#end()
+" --> For proper markdown formatting of .md files
+silent! Plugin 'godlygeek/tabular'
+silent! Plugin 'plasticboy/vim-markdown'
+silent! call vundle#end()
 filetype plugin indent on
 
 " CTRL-P Configuration
