@@ -1,1 +1,6 @@
+# Ignore temp files
+*.swp
+*.swo
+*~
+
 vim/.netrwhist
