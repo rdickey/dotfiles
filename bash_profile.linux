@@ -1,4 +1,5 @@
 # TODO: combine the common parts of bash_profile.linux and bash_profile.mac and only have the small differences in each
+#echo sourcing .bash_profile
 
 [[ -f /etc/profile ]] && . /etc/profile
 [[ -f ~/.aws.sh ]] && . ~/.aws.sh
@@ -71,7 +72,7 @@ function goi {
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
+    if [ -z "$BASHRC_DONE" -a -f "$HOME/.bashrc" ]; then
         . "$HOME/.bashrc"
     fi
     if [ -f "/etc/bash_completion" ] && ! shopt -oq posix; then
@@ -122,3 +123,5 @@ export LESS="-x4 -FXR"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 ssh-add $HOME/.ssh/*pem >/dev/null 2>&1
+
+export BASH_PROFILE_DONE=true

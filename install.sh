@@ -11,6 +11,8 @@ confirm () {
 
     if [ -e "$SRCNAME.$OS" ]; then
         SRCNAME="$SRCNAME.$OS"
+    elif [ -e "$SRCNAME.$2" ]; then
+        SRCNAME="$SRCNAME.$2"
     fi
 
     remove $FNAME
@@ -34,9 +36,10 @@ fi
 
 # create symlinks to the dotfiles directory
 confirm "bash_profile"
-[[ $OS == "mac" ]] && confirm "gitconfig"
 confirm "vim"
 confirm "vimrc"
 confirm "gvimrc"
 confirm "gemrc"
 confirm "sqliterc"
+[[ $OS == "mac" ]] && confirm "gitconfig"
+lsb_release -a >/dev/null 2>&1 && confirm "bashrc" "ubuntu"
