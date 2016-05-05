@@ -9,11 +9,13 @@ confirm () {
     SRCNAME="`pwd`/$1"
     FNAME="$HOME/.$1"
 
-    if [ -e "$SRCNAME.$OS" ]; then
-        SRCNAME="$SRCNAME.$OS"
-    elif [ -e "$SRCNAME.$2" ]; then
-        SRCNAME="$SRCNAME.$2"
-    fi
+    NAMES="$SRCNAME.$2 $SRCNAME.$2.sh $SRCNAME.$OS $SRCNAME.$OS.sh $SRCNAME.sh "
+    for NAME in $NAMES; do
+        if [ -e "$NAME" ]; then
+            SRCNAME="$NAME"
+            break
+        fi
+    done
 
     remove $FNAME
     echo "LINKING: $SRCNAME -> $FNAME"
@@ -21,7 +23,10 @@ confirm () {
 }
 
 remove () {
-    if [ -e "$1" ]; then
+    if [ -L "$1" ]; then
+        echo "DELETING old link $1"
+        rm $1
+    elif [ -e "$1" ]; then
         echo "MOVING: $1 to $HOME/.old-dotfiles/"
         mkdir -p $HOME/.old-dotfiles
         mv -f "$1" "$HOME/.old-dotfiles/" 2>/dev/null || rm -rf $1
@@ -36,6 +41,7 @@ fi
 
 # create symlinks to the dotfiles directory
 confirm "bash_profile"
+confirm "bash_functions"
 confirm "vim"
 confirm "vimrc"
 confirm "gvimrc"

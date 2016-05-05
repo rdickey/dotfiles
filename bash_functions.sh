@@ -1,11 +1,4 @@
-# TODO: combine the common parts of bash_profile.linux and bash_profile.mac and only have the small differences in each
-
-[[ -f /etc/profile ]] && . /etc/profile
-[[ -f ~/.aws.sh ]] && . ~/.aws.sh
-export PATH=$HOME/bin:$HOME/.local/bin:$PATH
-export EDITOR="/usr/bin/vim"
-export LSCOLORS="cxgxcbdbdxegeddxdxcxcx"
-export HISTFILESIZE=1048576
+# To be sourced in bash_profile
 
 function find_git_branch {
     local dir=. head
@@ -74,6 +67,16 @@ function goi {
     fi
 }
 
+function goa {
+    host=`aws ec2 describe-instances --output text |grep $1 | egrep -o 'ec2-[0-9-]+.[a-z0-9-]+.amazonaws.com' | head -1`
+    if [ -n "$host" ]; then
+        echo "Connecting to host $host"
+        go $host
+    else
+        echo "Could not get hostname for $1.  Maybe it doesn't exist?"
+    fi
+}
+
 function goid {
     hostname=`aws ec2 describe-instances --instance-ids $1 --output text | egrep INSTANCES | egrep -o 'ec2-.+amazonaws.com' | head -n 1`
     if [ -n "$hostname" ]; then
@@ -83,57 +86,3 @@ function goid {
         echo "Couldn't get hostname for id $1.  Maybe it died?"
     fi
 }
-
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
-fi
-
-# colors found at http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
-# ref: http://tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-true &&     RS="\[\033[0m\]"    # reset
-true && BRANCH="\[\033[1;34m\]"
-true &&     FG="\[\033[0;31m\]"
-true &&    FGB="\[\033[1;31m\]"
-if [ "$USER" = "root" ]; then
-    SEP='#'
-else
-    SEP='$'
-fi
-PS1="${FGB}{${BRANCH}\$git_branch${FGB}\u@\h:${FG}\w${FGB}}${SEP}${RS} "
-PROMPT_COMMAND='echo -ne "\033]0;$git_branch$USER@$HOSTNAME:$munged_path\007"'
-PROMPT_COMMAND="munge_path; find_git_branch; $PROMPT_COMMAND"
-
-alias ls="ls -GF"
-alias sl="ls"
-alias l="ls -al"
-alias ll="ls -alhF"
-[[ -n "`which vim 2>/dev/null`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
-
-alias grep="egrep"
-alias egrep="egrep --color"
-# This is a hack so that things like "sudo vi" will evaluate as "sudo vim".
-# Otherwise, bash would only evaluate the alias for sudo (if any), not whatever came after it.
-alias sudo="sudo "
-
-alias fuck='sudo $(history -p \!\!)'
-alias ffs='sudo $(history -p \!\!)'
-
-[[ -s "$HOME/.bash_custom" ]] && source "$HOME/.bash_custom"
-[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-### Added by the Heroku Toolbelt
-[[ -d "/usr/local/heroku/bin" ]] && export PATH="/usr/local/heroku/bin:$PATH"
-
-#alias fixws="wmctrl -R Wireshark -e 0,100,300,1600,1000"
-alias fixws="wmctrl -R Wireshark -e 0,1000,1200,1600,1000"
-
-# MacPorts Installer addition
-[[ -d "/opt/local/bin" ]] && export PATH="/opt/local/sbin:$PATH"
-[[ -d "/opt/local/sbin" ]] && export PATH="/opt/local/bin:$PATH"
-
-ssh-add $HOME/.ssh/*pem >/dev/null 2>&1

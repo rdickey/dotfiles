@@ -50,13 +50,13 @@ au BufNewFile,BufRead *.less set ft=css
 
 au BufNewFile,BufRead *.scss,*.rb,*.yml,*.haml,*.erb set et ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.js set et ts=2 sw=2 sts=2
-au BufNewFile,BufRead *.sh,*.py*,*.mac,*.linux set et ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.py* set et ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
 au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.md set textwidth=72
 
-au BufNewFile,BufRead *.mac,*.linux,.bashrc,.*profile,.bash* set syntax=sh et ts=4 sw=4
+au BufNewFile,BufRead *.sh,.bashrc,.*profile,.bash* set syntax=sh et ts=4 sw=4
 
 
 inoremap <C-a> <Home>
