@@ -6,7 +6,7 @@ install () {
 }
 
 confirm () {
-    SRCNAME="`pwd`/$1"
+    SRCNAME="$(cd `dirname $0`; pwd)/$1"
     FNAME="$HOME/.$1"
 
     NAMES="$SRCNAME.$2 $SRCNAME.$2.sh $SRCNAME.$OS $SRCNAME.$OS.sh $SRCNAME.sh "
@@ -33,10 +33,16 @@ remove () {
     fi
 }
 
+if [ -z "$HOME" -a "`whoami`" == "root" ]; then
+    export HOME="/root"
+fi
+
 if [ -d "/proc" ]; then
     OS="linux"
+    [[ -z "$HOME" ]] && export HOME="/home/`whoami`"
 else
     OS="mac"
+    [[ -z "$HOME" ]] && export HOME="/Users/`whoami`"
 fi
 
 # create symlinks to the dotfiles directory
