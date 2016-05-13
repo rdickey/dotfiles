@@ -59,6 +59,8 @@ alias ffs='sudo $(history -p \!\!)'
 
 export LESS="-x4 -FXR"
 
+complete -C aws_completer aws
+
 [[ -s "$HOME/.bash_custom" ]] && source "$HOME/.bash_custom"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
