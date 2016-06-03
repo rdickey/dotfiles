@@ -6,7 +6,9 @@ let g:ackpreview = 0
 let g:ack_use_dispatch = 1
 let g:ack_default_options = " -s -H --nocolor --nogroup --column --follow --type-set=LOG=.log --noLOG "
 
-set clipboard=unnamed
+"" this clipboard thing copies everything to the clipboard for cc, yy, etc
+"set clipboard=unnamed
+
 set nocompatible
 set ignorecase
 set smartcase
@@ -42,7 +44,7 @@ syntax sync minlines=1000
 au BufNewFile,BufRead *.php,*.php3,*.inc  set ft=php
 "au BufNewFile,BufRead *.txt set et ts=4 tw=80
 au BufNewFile,BufRead *.txt set et ts=4
-au BufNewFile,BufRead *.js,*.html,*.htm,*.less,*.scss,*.sass,*.rb,*.yml,*.haml,*.erb,*.ejs,*.rake,*.markdown,*.json set et syntax=javascript ts=2 sw=2 sts=2
+au BufNewFile,BufRead *.js,*.html,*.htm,*.less,*.scss,*.sass,*.rb,*.haml,*.erb,*.ejs,*.rake,*.markdown,*.json set et syntax=javascript ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.jst.ejs.erb set ft=html
 au BufNewFile,BufRead Gemfile,Rakefile,Capfile,capfile,*.pdf.prawn,*.rabl,*.ruby,*.god,*.cap set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
@@ -101,6 +103,7 @@ silent! call vundle#end()
 " --> For proper markdown formatting of .md files
 silent! Plugin 'godlygeek/tabular'
 silent! Plugin 'plasticboy/vim-markdown'
+silent! Plugin 'pearofducks/ansible-vim'
 silent! call vundle#end()
 filetype plugin indent on
 
@@ -121,5 +124,9 @@ endf
 fu! CtrlP_Statusline_2(...)
 	return '%#CtrlPMode2# '.a:1.' %*'
 endf
+
+"let g:ansible_extra_syntaxes = "sh.vim ruby.vim"
+let g:ansible_attribute_highlight = "ab"
+let g:ansible_extra_keywords_highlight = 1
 
 noremap <C-f> :tabnew<CR>:Ack
