@@ -99,9 +99,8 @@ silent! Plugin 'airblade/vim-rooter'
 silent! Plugin 'mileszs/ack.vim'
 " --> For asynchronously running commands
 silent! Plugin 'tpope/vim-dispatch'
-silent! call vundle#end()
-" --> For proper markdown formatting of .md files
 silent! Plugin 'godlygeek/tabular'
+" --> For proper markdown formatting of .md files
 silent! Plugin 'plasticboy/vim-markdown'
 silent! Plugin 'pearofducks/ansible-vim'
 silent! call vundle#end()

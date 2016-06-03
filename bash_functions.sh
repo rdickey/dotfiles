@@ -31,15 +31,9 @@ function find_git_branch {
     git_branch=''
 }
 function munge_path {
-    if [ -n "`which ruby 2>/dev/null`" ]; then
-        munged_path=`ruby -e "y='$PWD'.sub('$HOME','~');x='';p=y.split('/');x+='.../' if p.length > 4; x+=p[[0,p.length-4].max,p.length].join('/');x+='/' if p.length==0;if x.length < y.length then print x; else print y; end;"`
-        # TODO: rewrite this to not use ruby.  hints:
-        # echo $name | egrep -o '/' | wc -w
-        # echo $name | cut -d '/' -f 5-7
-    else
-        munged_path=$PWD
-        [[ "$munged_path" =~ ^"$HOME"(/|$) ]] && munged_path="~${name#$HOME}"
-    fi
+    munged_path=$PWD
+    [[ "$munged_path" =~ ^"$HOME"(/|$) ]] && munged_path="~${munged_path#$HOME}"
+    [[ "$munged_path" =~ /.+/.+/.+/ ]] && munged_path=".../$(echo $munged_path | rev | cut -d '/' -f 1-3 | rev)"
 }
 
 
