@@ -20,7 +20,7 @@ set viminfo='20,\"50
 set history=50
 set ruler
 set tabstop=4
-set noexpandtab
+set expandtab
 set showmatch
 set wrap
 set wildmenu
@@ -46,7 +46,8 @@ au BufNewFile,BufRead *.php,*.php3,*.inc  set ft=php
 au BufNewFile,BufRead *.txt set et ts=4
 au BufNewFile,BufRead *.js,*.html,*.htm,*.less,*.scss,*.sass,*.rb,*.haml,*.erb,*.ejs,*.rake,*.markdown,*.json set et syntax=javascript ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.jst.ejs.erb set ft=html
-au BufNewFile,BufRead Gemfile,Rakefile,Capfile,capfile,*.pdf.prawn,*.rabl,*.ruby,*.god,*.cap set et ts=2 sw=2 sts=2 ft=ruby
+"au BufNewFile,BufRead Gemfile,Rakefile,Capfile,Cloudfile,capfile,*.pdf.prawn,*.rabl,*.ruby,*.god,*.cap set et ts=2 sw=2 sts=2 ft=ruby
+au BufNewFile,BufRead *file,*.pdf.prawn,*.rabl,*.ruby,*.god,*.cap set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.less set ft=css
 
@@ -54,11 +55,13 @@ au BufNewFile,BufRead *.scss,*.rb,*.yml,*.haml,*.erb set et ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.js set et ts=2 sw=2 sts=2
 au BufNewFile,BufRead *.py* set et ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
-au BufNewFile,BufRead Rakefile,Capfile,capfile set et ts=2 sw=2 sts=2 ft=ruby
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.md set textwidth=72
 
 au BufNewFile,BufRead *.sh,.bashrc,.*profile,.bash* set syntax=sh et ts=4 sw=4
+
+let g:terraform_align=1
+let g:terraform_fmt_on_save = 1
 
 
 inoremap <C-a> <Home>
@@ -103,6 +106,8 @@ silent! Plugin 'godlygeek/tabular'
 " --> For proper markdown formatting of .md files
 silent! Plugin 'plasticboy/vim-markdown'
 silent! Plugin 'pearofducks/ansible-vim'
+silent! Plugin 'fatih/vim-go'
+silent! Plugin 'hashivim/vim-terraform'
 silent! call vundle#end()
 filetype plugin indent on
 

@@ -19,7 +19,7 @@ function find_git_branch {
                 git_branch="${git_branch}(`git unpushed | wc -l | tr -d ' \n'`)"
             fi
 
-            if [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]]; then
+            if [ -z "$(git status | egrep 'working (directory|tree) clean')" ]; then
                 git_branch="${git_branch}*"
             fi
 
@@ -37,25 +37,25 @@ function munge_path {
 }
 
 
-function go {
+function gos {
     for U in ec2-user ubuntu centos root $USER; do
         ssh -oConnectTimeout=1 -oUser=$U $* && return
     done
 }
 
 function goo {
-    while true; do date;go $1 && return; sleep 1; done
+    while true; do date;gos $1 && return; sleep 1; done
 }
 
 function gooo {
-    while true; do date;go $1; sleep 1; done
+    while true; do date;gos $1; sleep 1; done
 }
 
 function goi {
     ip=`echo $1 | sed 's/ec2//' | egrep -o '[0-9]+-[0-9]+-[0-9]+-[0-9]+' | sed -e 's/-/./g'`
     if [ -n "$ip" ]; then
         echo "Connecting to ip $ip"
-        go $ip
+        gos $ip
     else
         echo "Could not get ip for $1.  Maybe it's ill formatted?"
     fi
@@ -65,7 +65,7 @@ function goa {
     host=`aws ec2 describe-instances --output text |grep $1 | egrep -o 'ec2-[0-9-]+.[a-z0-9-]+.amazonaws.com' | head -1`
     if [ -n "$host" ]; then
         echo "Connecting to host $host"
-        go $host
+        gos $host
     else
         echo "Could not get hostname for $1.  Maybe it doesn't exist?"
     fi
@@ -75,7 +75,7 @@ function goid {
     hostname=`aws ec2 describe-instances --instance-ids $1 --output text | egrep INSTANCES | egrep -o 'ec2-.+amazonaws.com' | head -n 1`
     if [ -n "$hostname" ]; then
         echo "Connecting to hostname $hostname"
-        go $hostname
+        gos $hostname
     else
         echo "Couldn't get hostname for id $1.  Maybe it died?"
     fi
