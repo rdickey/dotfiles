@@ -17,9 +17,13 @@ confirm () {
         fi
     done
 
-    remove $FNAME
-    echo "LINKING: $SRCNAME -> $FNAME"
-    install $SRCNAME $FNAME
+    echo "Remove $FNAME and link $SRCNAME -> $FNAME? (y/n)"
+    read yn
+    if [[ $yn =~ [yY][eE]?[sS]? ]]; then
+        remove $FNAME
+        echo "LINKING: $SRCNAME -> $FNAME"
+        install $SRCNAME $FNAME
+    fi
 }
 
 remove () {
@@ -55,6 +59,7 @@ confirm "vimrc"
 confirm "gvimrc"
 confirm "gemrc"
 confirm "sqliterc"
+confirm "ssh/config"
 lsb_release -a >/dev/null 2>&1 && confirm "bashrc" "ubuntu"
 if [ $OS == "mac" ]; then
     confirm "gitconfig"

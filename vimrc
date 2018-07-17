@@ -134,3 +134,15 @@ let g:ansible_attribute_highlight = "ab"
 let g:ansible_extra_keywords_highlight = 1
 
 noremap <C-f> :tabnew<CR>:Ack
+
+" Lifted from ecarey's ~/.vimrc
+" Terraform magic!
+command! -bar TerraformKeywordsPrettify %s/^"\(module\|resource\|data\|variable\)"/\1/e
+command! -bar TerraformCommentsPrettify %s!^\s\+\zs//\ze!#!e
+command! -bar TerraformNewlinesPrettify %s/.*=.*\zs\n\n\ze/\r/e
+command! -bar TerraformAssignsPrettify %s/\s\+\zs"\([A-Za-z0-9_\-]\+\)"\ze.*=/\1/e
+command! -bar TerraformFormat %!terraform fmt -
+command! -bar TerraformMapValuePrettify %s/= {/{/e
+command! -bar TerraformEmptyValueFix %s/= $/= ""/e
+command! PrettyFormatTerraform TerraformEmptyValueFix | TerraformCommentsPrettify | TerraformKeywordsPrettify | TerraformAssignsPrettify | TerraformMapValuePrettify | TerraformNewlinesPrettify | TerraformFormat
+command! TerraformPrettyFormat PrettyFormatTerraform

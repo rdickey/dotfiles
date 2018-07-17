@@ -23,3 +23,5 @@
 	template = auto
 [github]
 	user = rdickey
+[credential]
+	helper = osxkeychain
