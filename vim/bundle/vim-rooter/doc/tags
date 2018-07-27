@@ -1,9 +1,14 @@
 g:rooter_change_directory_for_non_project_files	rooter.txt	/*g:rooter_change_directory_for_non_project_files*
 g:rooter_manual_only	rooter.txt	/*g:rooter_manual_only*
 g:rooter_patterns	rooter.txt	/*g:rooter_patterns*
+g:rooter_resolve_links	rooter.txt	/*g:rooter_resolve_links*
+g:rooter_silent_chdir	rooter.txt	/*g:rooter_silent_chdir*
+g:rooter_targets	rooter.txt	/*g:rooter_targets*
 g:rooter_use_lcd	rooter.txt	/*g:rooter_use_lcd*
 rooter	rooter.txt	/*rooter*
 rooter-configuration	rooter.txt	/*rooter-configuration*
+rooter-finding-root	rooter.txt	/*rooter-finding-root*
 rooter-installation	rooter.txt	/*rooter-installation*
 rooter-introduction	rooter.txt	/*rooter-introduction*
+rooter-non-project-files	rooter.txt	/*rooter-non-project-files*
 rooter-use	rooter.txt	/*rooter-use*

@@ -69,10 +69,13 @@ snippet ife full if-else statement
 		${0}
 	end
 
+snippet tern ternary operator
+	${1} ? ${2} : ${3:nothing}
+
 # Exceptions
 snippet try try catch
 	try
-		${1}
+		${1:${VISUAL}}
 	catch ${2}
 		${0}
 	end

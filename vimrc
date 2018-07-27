@@ -78,37 +78,37 @@ noremap <silent> ,. :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<C
 " Vundle Setup
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-silent! call vundle#begin()
+call vundle#begin()
 " --> Have Vundle manage itself
-silent! Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/Vundle.vim'
 " --> These are all for snippets
-silent! Plugin 'MarcWeber/vim-addon-mw-utils'
-silent! Plugin 'tomtom/tlib_vim'
-silent! Plugin 'garbas/vim-snipmate'
-silent! Plugin 'honza/vim-snippets'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 " --> The CtrlP plugin
-silent! Plugin 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 " --> For block comments
-silent! Plugin 'tomtom/tcomment_vim'
+Plugin 'tomtom/tcomment_vim'
 " --> For Rails support
-silent! Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rails'
 " --> For JavaScript support
-silent! Plugin 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 " --> For jst/ejs support
-silent! Plugin 'briancollins/vim-jst'
+Plugin 'briancollins/vim-jst'
 " --> For changing the cwd to the project root
-silent! Plugin 'airblade/vim-rooter'
+Plugin 'airblade/vim-rooter'
 " --> For fuzzy finding
-silent! Plugin 'mileszs/ack.vim'
+Plugin 'mileszs/ack.vim'
 " --> For asynchronously running commands
-silent! Plugin 'tpope/vim-dispatch'
-silent! Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-dispatch'
+Plugin 'godlygeek/tabular'
 " --> For proper markdown formatting of .md files
-silent! Plugin 'plasticboy/vim-markdown'
-silent! Plugin 'pearofducks/ansible-vim'
-silent! Plugin 'fatih/vim-go'
-silent! Plugin 'hashivim/vim-terraform'
-silent! call vundle#end()
+Plugin 'plasticboy/vim-markdown'
+Plugin 'pearofducks/ansible-vim'
+Plugin 'fatih/vim-go'
+Plugin 'hashivim/vim-terraform'
+call vundle#end()
 filetype plugin indent on
 
 " CTRL-P Configuration
