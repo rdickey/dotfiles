@@ -8,7 +8,9 @@ export HISTFILESIZE=1048576
 export LSCOLORS="cxgxcbdbdxegeddxdxcxcx"
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
-source ~/.bash_functions
+for f in ~/.bash_functions*; do
+    source $f
+done
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -68,7 +70,7 @@ alias sudo="sudo "
 alias fixcursor="setterm -cursor on"
 
 alias ffs='sudo $(history -p \!\!)'
-eval "$(thefuck --alias)"
+#eval "$(thefuck --alias)"
 
 alias bitchen='kitchen'
 
@@ -89,7 +91,7 @@ alias fixws="wmctrl -R Wireshark -e 0,1000,1200,1600,1000"
 
 # MacPorts Installer addition
 [[ -d "/opt/local/bin" ]] && export PATH="/opt/local/sbin:$PATH"
-[[ -d "/opt/local/sbin" ]] && export PATH="/opt/local/bin:$PATH"
+[[ -d "/opt/local/sbin" ]] && export PATH="/opt/local/sbin:$PATH"
 
 [[ -n "`which boot2docker`" ]] && eval "$(boot2docker shellinit 2>/dev/null)"
 
@@ -167,5 +169,22 @@ function tfimport() {
     [ -f "$var_file" ] && terraform import -var-file="$var_file" ${@:2} || terraform import ${@:2}
 }
 
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+### CRITICAL Go ENV variables
+[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+#export GOROOT=/usr/local/opt/go/libexec/bin      # location of go binaries
+export GOPATH=${HOME}
+[[ -d $GOROOT ]] && export PATH=$PATH:$GOROOT
+[[ -d $GOPATH ]] && export PATH=$PATH:$GOPATH/bin
+[[ -z $GOPATH && -d $HOME/go ]] && export GOPATH=$HOME/go
+[[ -d /usr/local/opt/go/libexec/bin ]] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
+[[ -d $GOPATH ]] && export PATH=$PATH:$GOPATH/bin
+
+[[ -e "/usr/local/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/usr/local/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh"
 
 export BASH_PROFILE_DONE=true
+
+
+
+[[ -s "/Users/rdickey/.gvm/scripts/gvm" ]] && source "/Users/rdickey/.gvm/scripts/gvm"

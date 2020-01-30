@@ -1,6 +1,10 @@
 # To be sourced in bash_profile
 
 function find_git_branch {
+    git_branch=`git branch 2>/dev/null | egrep '^\*' | cut -d ' ' -f 2-`
+    [[ -n "$git_branch" ]] && git_branch="$git_branch "
+    return
+    ## FIXME: This makes bash slow when git or filesystem is slow.  I would _*love*_ for this function to work fast but Oracle is slow
     local dir=. head
     until [ "$dir" -ef / ]; do
         if [ -f "$dir/.git/HEAD" ]; then
@@ -15,6 +19,7 @@ function find_git_branch {
 
             # requires the following .gitconfig alias:
             # unpushed = !GIT_CURRENT_BRANCH=$(git name-rev --name-only HEAD) && git log origin/$GIT_CURRENT_BRANCH..$GIT_CURRENT_BRANCH --oneline
+
             if [[ -n $(git branch   2> /dev/null) ]] && [[ -n $(git unpushed 2> /dev/null) ]]; then
                 git_branch="${git_branch}(`git unpushed | wc -l | tr -d ' \n'`)"
             fi
@@ -80,3 +85,4 @@ function goid {
         echo "Couldn't get hostname for id $1.  Maybe it died?"
     fi
 }
+

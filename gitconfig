@@ -25,3 +25,6 @@
 	user = rdickey
 [credential]
 	helper = osxkeychain
+[http]
+lowSpeedLimit = 1000
+lowSpeedTime = 20

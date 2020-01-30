@@ -17,7 +17,7 @@ confirm () {
         fi
     done
 
-    echo "Remove $FNAME and link $SRCNAME -> $FNAME? (y/n)"
+    echo -n "Remove $FNAME and link $SRCNAME -> $FNAME? (y/n)"
     read yn
     if [[ $yn =~ [yY][eE]?[sS]? ]]; then
         remove $FNAME
@@ -54,6 +54,9 @@ DIRNAME="$(cd `dirname $0`; pwd)"
 # create symlinks to the dotfiles directory
 confirm "bash_profile"
 confirm "bash_functions"
+confirm "bash_functions_tf"
+confirm "bash_functions_docker"
+confirm "bash_functions_go"
 confirm "vim"
 confirm "vimrc"
 confirm "gvimrc"

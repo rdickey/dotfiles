@@ -10,8 +10,8 @@
 # list of available options, their meanings and defaults, please see the
 # ssh_config(5) man page.
 
-Host *
-ForwardAgent yes
+#Host *
+#ForwardAgent yes
 #   ForwardX11 no
 #   PasswordAuthentication yes
 #   HostbasedAuthentication no
@@ -20,8 +20,8 @@ ForwardAgent yes
 #   BatchMode no
 #   CheckHostIP yes
 #   AddressFamily any
-ConnectTimeout 5
-StrictHostKeyChecking no
+#ConnectTimeout 5
+#StrictHostKeyChecking no
 #   IdentityFile ~/.ssh/id_rsa
 #   IdentityFile ~/.ssh/id_dsa
 #   IdentityFile ~/.ssh/id_ecdsa
@@ -38,5 +38,168 @@ StrictHostKeyChecking no
 #   ProxyCommand ssh -q -W %h:%p gateway.example.com
 #   RekeyLimit 1G 1h
 
+#Host *
+#    SendEnv LANG LC_*
+
+User rdickey
+PKCS11Provider /Library/OpenSC/lib/opensc-pkcs11.so
+ServerAliveInterval 10
+ForwardAgent no
+ForwardX11 no
+ForwardX11Trusted no
+Protocol 2
+
 Host *
-	SendEnv LANG LC_*
+    #ForwardAgent yes
+    ServerAliveInterval 10
+    ServerAliveCountMax 6
+
+# OCI bastions
+Host *.dev.oraclevcn.com.phx
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 130.35.6.135
+
+Host *.dev.oraclevcn.com.iad
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 130.35.28.204
+
+Host *.integ.oraclevcn.com.iad
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 130.35.29.80
+
+Host *.prod.oraclevcn.com.phx
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 130.35.6.208
+
+Host *.prod.oraclevcn.com.iad
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 130.35.31.10
+
+Host *.prod.oraclevcn.com.fra
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 138.1.10.133
+
+Host *.prod.oraclevcn.com.lhr
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W $(echo %h | cut -d "." -f-5):%p 138.1.28.70
+
+# LHR
+Host *.ad1.uk-london-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.uk-london-1.oracleiaas.com
+
+Host *.ad2.uk-london-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad2.uk-london-1.oracleiaas.com
+
+Host *.ad3.uk-london-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad3.uk-london-1.oracleiaas.com
+
+Host *.pop1.uk-london-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-pop1.uk-london-1.oracleiaas.com
+
+Host *.pop2.uk-london-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-pop2.uk-london-1.oracleiaas.com
+
+# LHR catch-all
+Host *.uk-london-1
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-pop1.uk-london-1.oracleiaas.com
+
+# FRA
+Host *.ad1.eu-frankfurt-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.eu-frankfurt-1.oracleiaas.com
+
+Host *.ad2.eu-frankfurt-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad2.eu-frankfurt-1.oracleiaas.com
+
+Host *.ad3.eu-frankfurt-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad3.eu-frankfurt-1.oracleiaas.com
+
+# FRA catch-all
+Host *.eu-frankfurt-1
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-pop1.eu-frankfurt-1.oracleiaas.com
+
+# IAD
+Host *.ad1.us-ashburn-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.us-ashburn-1.oracleiaas.com
+
+Host *.ad2.us-ashburn-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad2.us-ashburn-1.oracleiaas.com
+
+Host *.ad3.us-ashburn-1 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad3.us-ashburn-1.oracleiaas.com
+
+# IAD catch-all
+Host *.us-ashburn-1
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-pop1.us-ashburn-1.oracleiaas.com
+
+# PHX
+Host *.ad1.r2 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.r2.oracleiaas.com
+
+Host *.ad2.r2 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad2.r2.oracleiaas.com
+
+Host *.ad3.r2 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad3.r2.oracleiaas.com
+
+# PHX catch-all
+Host *.r2 !bastion*.oracleiaas.com
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad2.r2.oracleiaas.com
+
+# MC1
+Host *.ad1.mc1 !bastion*.oracleiaas.com
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.mc1.oracleiaas.com
+
+Host *.ad2.mc1 !bastion*.oracleiaas.com
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.mc1.oracleiaas.com
+
+# R1
+Host bastion-ad1.r1.oracleiaas.com
+    HostName 129.145.8.80
+
+Host *.ad1.r1
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad1.r1.oracleiaas.com
+
+Host *.ad2.r1
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion-ad2.r1.oracleiaas.com
+
+# R0
+Host bastion.r0.grungy.us bastion*.oracleiaas.com
+    ControlMaster auto
+    ControlPersist yes
+    ControlPath=/tmp/bastion-%h%p%r
+    PermitLocalCommand yes
+
+Host 172.18.56.* 172.18.57.* 172.18.58.* 172.18.59.* 172.18.60.* 172.18.57.* 172.18.61.*
+     ProxyCommand ssh -o ConnectTimeout=15 -o StrictHostKeyChecking=no  -W %h:%p tca-gateway-hv02.virt.lgl.grungy.us
+
+host *.r0 172.18.* !bastion*.r0.grungy.us
+    PermitLocalCommand yes
+    ProxyCommand ssh -q -W %h:%p bastion.r0.grungy.us
+
+Host *.lgl.grungy.us
+    ForwardX11Trusted no
+    PermitLocalCommand yes
+
+Host *.virt.lgl.grungy.us
+     IdentityFile /Library/OpenSC/lib/opensc-pkcs11.so
+     ForwardAgent yes

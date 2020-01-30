@@ -39,7 +39,7 @@ syntax enable
 set background=dark
 colorscheme luke
 "colorscheme solarized
-syntax sync minlines=1000
+syntax sync minlines=5000
 
 au BufNewFile,BufRead *.php,*.php3,*.inc  set ft=php
 "au BufNewFile,BufRead *.txt set et ts=4 tw=80
@@ -58,7 +58,7 @@ au BufNewFile,BufRead *.c,*.h set noet nolist ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.scss set ft=sass
 au BufNewFile,BufRead *.md set textwidth=72
 
-au BufNewFile,BufRead *.sh,.bashrc,.*profile,.bash* set syntax=sh et ts=4 sw=4
+au BufNewFile,BufRead *.sh,*/.bash* set syntax=sh et ts=4 sw=4
 
 let g:terraform_align=1
 let g:terraform_fmt_on_save = 1
@@ -108,6 +108,7 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'pearofducks/ansible-vim'
 Plugin 'fatih/vim-go'
 Plugin 'hashivim/vim-terraform'
+Plugin 'bash-support.vim'
 call vundle#end()
 filetype plugin indent on
 
