@@ -1,0 +1,6 @@
+[submodule "vim/bundle/vim/bundle/bash-support.vim"]
+	path = vim/bundle/vim/bundle/bash-support.vim
+	url = https://github.com/WolfgangMehner/bash-support
+[submodule "vim/bundle/bash-support.vim"]
+	path = vim/bundle/bash-support.vim
+	url = https://github.com/WolfgangMehner/bash-support
