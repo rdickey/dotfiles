@@ -37,8 +37,8 @@ set ttimeoutlen=250
 
 syntax enable
 set background=dark
-colorscheme luke
-"colorscheme solarized
+"colorscheme luke
+colorscheme solarized
 syntax sync minlines=5000
 
 au BufNewFile,BufRead *.php,*.php3,*.inc  set ft=php
@@ -109,6 +109,7 @@ Plugin 'pearofducks/ansible-vim'
 Plugin 'fatih/vim-go'
 Plugin 'hashivim/vim-terraform'
 Plugin 'bash-support.vim'
+Plugin 'ekalinin/Dockerfile.vim'
 call vundle#end()
 filetype plugin indent on
 

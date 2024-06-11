@@ -1,24 +1,57 @@
-# Replace rd with your deployment ID
-alias k="kubectl -n ns-user-rd"
-alias kpo="kubectl -n ns-user-rd get po -o wide"
-alias kdeploy="kubectl -n ns-user-rd get deploy -o wide"
-alias ksvc="kubectl -n ns-user-rd get svc -o wide"
+# This command is used a LOT both below and in daily life
+alias k=kubectl
 
-function guestbook() {
-    if [ -z "$1" ]
-    then
-        echo "ClusterID for guestbook argument not supplied"
-        return 1
-    fi
-    cd $HOME/src/gitlab-odx.oracle.com/odx/oke/k8s-manager
-    ./scripts/dtenant-manager instances kubeconfig $1 > $HOME/src/kubeconfig.$1
-    kubectl create -f ~/src/gitlab-odx.oracle.com/odx/oke/end2end/examples/guestbook-all-in-one-dns.yaml --kubeconfig=$HOME/src/kubeconfig.$1
-    kubectl get services/frontend --kubeconfig=$HOME/src/kubeconfig.$1
-    kubectl get nodes --kubeconfig=$HOME/src/kubeconfig.$1
+# Apply a YML file
+alias kaf='k apply -f'
 
-    CLUSTER_IP=`kubectl get nodes --kubeconfig=$HOME/src/kubeconfig.$1 -o yaml | grep external.ipaddress | head -n 3 | tail -n 1 | awk '{print $2 }'`
-    NODEPORT=`kubectl get services/frontend --kubeconfig=$HOME/src/kubeconfig.$1 -o yaml | grep nodePort: | awk '{print $3 }'`
+# Drop into an interactive terminal on a container
+alias keti='k exec -ti'
 
-    open http://$CLUSTER_IP:$NODEPORT
-    popd
-}
+# Manage configuration quickly to switch contexts between local, dev ad staging.
+alias kcs='kubectx'
+alias kns='kubens'
+alias kcuc='k config use-context'
+alias kcsc='k config set-context'
+alias kcdc='k config delete-context'
+alias kccc='k config current-context'
+alias kcgc='k config get-contexts -o name'
+
+# Pod management.
+alias kgp='k get pods'
+alias kep='k edit pods'
+alias kdp='k describe pods'
+alias kdelp='k delete pods'
+
+# Service management.
+alias kgs='k get svc'
+alias kes='k edit svc'
+alias kds='k describe svc'
+alias kdels='k delete svc'
+
+# Ingress management
+alias kgi='k get ingress'
+alias kei='k edit ingress'
+alias kdi='k describe ingress'
+alias kdeli='k delete ingress'
+
+# Secret management
+alias kgsec='k get secret'
+alias kdsec='k describe secret'
+alias kdelsec='k delete secret'
+
+# Deployment management.
+alias kgd='k get deployment'
+alias ked='k edit deployment'
+alias kdd='k describe deployment'
+alias kdeld='k delete deployment'
+alias ksd='k scale deployment'
+alias krsd='k rollout status deployment'
+
+# Rollout management.
+alias kgrs='k get rs'
+alias krh='k rollout history'
+alias kru='k rollout undo'
+
+# Logs
+alias kl='k logs'
+alias klf='k logs -f'

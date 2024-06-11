@@ -57,6 +57,7 @@ confirm "bash_functions"
 confirm "bash_functions_tf"
 confirm "bash_functions_docker"
 confirm "bash_functions_go"
+confirm "bash_functions_kube"
 confirm "vim"
 confirm "vimrc"
 confirm "gvimrc"
@@ -69,5 +70,6 @@ if [ $OS == "mac" ]; then
     mkdir -p $HOME/Library/KeyBindings
     mv -f $HOME/Library/KeyBindings/DefaultKeyBinding.dict $HOME/Library/KeyBindings/DefaultKeyBinding.dict.bak 2>/dev/null
     ln -s "$DIRNAME/DefaultKeyBinding.dict" "$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
+    chsh -s /bin/bash
 fi
 

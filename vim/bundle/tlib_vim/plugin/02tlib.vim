@@ -52,13 +52,13 @@ command! -nargs=+ TVarArg exec tlib#arg#Let([<args>])
 
 
 " :display: :TBrowseOutput COMMAND
-" Ever wondered how to efficiently browse the output of a command 
-" without redirecting it to a file? This command takes a command as 
-" argument and presents the output via |tlib#input#List()| so that you 
-" can easily search for a keyword (e.g. the name of a variable or 
+" Ever wondered how to efficiently browse the output of a command
+" without redirecting it to a file? This command takes a command as
+" argument and presents the output via |tlib#input#List()| so that you
+" can easily search for a keyword (e.g. the name of a variable or
 " function) and the like.
 "
-" If you press enter, the selected line will be copied to the command 
+" If you press enter, the selected line will be copied to the command
 " line. Press ESC to cancel browsing.
 "
 " EXAMPLES: >
@@ -73,23 +73,23 @@ command! -nargs=1 -complete=command TBrowseOutput call tlib#cmd#BrowseOutput(<q-
 " window. Press ESC to cancel.
 "
 " EXAMPLES: >
-"   TBrowseScriptnames 
-command! -nargs=0 -complete=command TBrowseScriptnames call tlib#cmd#TBrowseScriptnames()
+"   TBrowseScriptnames
+"command! -nargs=0 -complete=command TBrowseScriptnames call tlib#cmd#TBrowseScriptnames()
 
 
 " :display: :Tlibtrace GUARD, VAR1, VAR2...
 " Do nothing unless |tlib#trace#Enable()| was called.
-" 
+"
 " When |:Tlibtraceset| or |tlib#trace#Enable()| were called:
 "
-" If GUARD is a number that evaluates to true or if it is a string that 
-" matches a |regexp|, which was added using Tlibtrace! (with '!'), 
+" If GUARD is a number that evaluates to true or if it is a string that
+" matches a |regexp|, which was added using Tlibtrace! (with '!'),
 " display the values of VAR1, VAR2 ...
 command! -nargs=+ -bang Tlibtrace :
 
 
 " :Tlibtraceset[!] [--file=FILE] +RX1 -RX2...
-" If |tlib#trace#Enable()| was called: With the optional <bang>, users 
+" If |tlib#trace#Enable()| was called: With the optional <bang>, users
 " can add and remove GUARDs (actually a |regexp|) that should be traced.
 "
 " If no `+` or `-` is prepended, assume `+`.

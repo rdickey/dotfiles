@@ -21,6 +21,7 @@
 	interactive = auto
 	status = auto
 	template = auto
+	ui = always
 [github]
 	user = rdickey
 [credential]
@@ -28,3 +29,5 @@
 [http]
 lowSpeedLimit = 1000
 lowSpeedTime = 20
+[protocol "keybase"]
+	allow = always

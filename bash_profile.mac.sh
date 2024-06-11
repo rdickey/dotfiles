@@ -31,6 +31,11 @@ if [ -n "$BASH_VERSION" ]; then
             . $(brew --prefix)/etc/bash_completion
         fi
     fi
+    if [ -d "$(brew --prefix)/bash_completion.d" ]; then
+        for f in `find $(brew --prefix)/bash_completion.d/*`; do
+            source "$f" 2>/dev/null
+        done
+    fi
 fi
 
 HISTCONTROL=ignoredups:erasedups  # no duplicate entries
@@ -63,16 +68,38 @@ alias ll="ls -alhF"
 [[ -n "`which vim 2>/dev/null`" ]] && alias vi="vim" || echo "Warning: vim is not installed.  This may cause sadness."
 
 alias grep="egrep"
-alias egrep="egrep --color"
+alias egrep="egrep --color --exclude-dir .terragrunt-cache"
 # This is a hack so that things like "sudo vi" will evaluate as "sudo vim".
 # Otherwise, bash would only evaluate the alias for sudo (if any), not whatever came after it.
 alias sudo="sudo "
 alias fixcursor="setterm -cursor on"
 
 alias ffs='sudo $(history -p \!\!)'
-#eval "$(thefuck --alias)"
+[[ -f `which thefuck` ]] && eval "$(thefuck --alias)"
 
 alias bitchen='kitchen'
+
+alias hd="helm -n develop"
+alias hs="helm -n staging"
+alias hp="helm -n production"
+alias hm="helm -n monitoring"
+alias hsy="helm -n kube-system"
+alias hk="helm -n kube-system"
+alias kd="kubectl -n develop"
+alias ks="kubectl -n staging"
+alias kp="kubectl -n production"
+alias km="kubectl -n monitoring"
+alias kk="kubectl -n kube-system"
+alias ksy="kubectl -n kube-system"
+alias k9d="k9s -n develop"
+alias k9s="k9s -n staging"
+alias k9p="k9s -n production"
+alias k9m="k9s -n monitoring"
+alias k9k="k9s -n kube-system"
+alias k9sy="k9s -n kube-system"
+alias k9a="k9s -A"
+
+alias label_nodes="for f in \`kubectl get nodes | grep none | awk '{print \$1}'\`; do NG=\`kubectl describe node \$f | grep nodegroup-name | cut -d = -f 2\`; echo \$f \$NG; kubectl label node \$f node-role.kubernetes.io/\${NG}=true ; done"
 
 export LESS="-x4 -FXR"
 
@@ -81,7 +108,8 @@ export LESS="-x4 -FXR"
 [[ -s "$HOME/.bash_custom" ]] && source "$HOME/.bash_custom"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -d "$HOME/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -d "$HOME/.rvm/bin" ]] && [[ -z "`echo $PATH | grep $HOME/.rvm/bin`" ]] && export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -d "/usr/local/sbin" ]] && [[ -z "`echo $PATH | grep /usr/local/sbin`" ]] && export PATH="$PATH:/usr/local/sbin"
 
 ### Added by the Heroku Toolbelt
 [[ -d "/usr/local/heroku/bin" ]] && export PATH="/usr/local/heroku/bin:$PATH"
@@ -93,7 +121,7 @@ alias fixws="wmctrl -R Wireshark -e 0,1000,1200,1600,1000"
 [[ -d "/opt/local/bin" ]] && export PATH="/opt/local/sbin:$PATH"
 [[ -d "/opt/local/sbin" ]] && export PATH="/opt/local/sbin:$PATH"
 
-[[ -n "`which boot2docker`" ]] && eval "$(boot2docker shellinit 2>/dev/null)"
+#[[ -n "`which boot2docker`" ]] && eval "$(boot2docker shellinit 2>/dev/null)"
 
 [[ -s "/etc/bashrc_Apple_Terminal" ]] && source "/etc/bashrc_Apple_Terminal"
 
@@ -173,18 +201,46 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 
 ### CRITICAL Go ENV variables
 [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
-#export GOROOT=/usr/local/opt/go/libexec/bin      # location of go binaries
 export GOPATH=${HOME}
-[[ -d $GOROOT ]] && export PATH=$PATH:$GOROOT
-[[ -d $GOPATH ]] && export PATH=$PATH:$GOPATH/bin
+[[ -d $GOROOT ]] && [[ -z "`echo $PATH | grep $GOROOT`" ]] && export PATH=$PATH:$GOROOT
+[[ -d $GOPATH ]] &&  [[ -z "`echo $PATH | grep $GOPATH/bin`" ]] &&export PATH=$PATH:$GOPATH/bin
 [[ -z $GOPATH && -d $HOME/go ]] && export GOPATH=$HOME/go
-[[ -d /usr/local/opt/go/libexec/bin ]] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
-[[ -d $GOPATH ]] && export PATH=$PATH:$GOPATH/bin
+[[ -d /usr/local/opt/go/libexec/bin ]] && [[ -z "`echo $PATH | grep /usr/local/opt/go/libexec/bin`" ]] && export PATH=$PATH:/usr/local/opt/go/libexec/bin
 
-[[ -e "/usr/local/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/usr/local/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh"
+[[ -s "/Users/rdickey/.gvm/scripts/gvm" ]] && source "/Users/rdickey/.gvm/scripts/gvm"
+
+MONGO_BIN_PATH="/usr/local/opt/mongodb-community@4.0/bin"
+[[ -d $MONGO_BIN_PATH ]] && export PATH=$MONGO_BIN_PATH:$PATH
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Stuff for kafka
+[[ -d /usr/local/opt/openjdk@17/bin ]] && export PATH=/usr/local/opt/openjdk@17/bin:$PATH
+[[ -d /Users/rdickey/kafka/kafka_2.13-2.8.2/bin ]] && export PATH=/Users/rdickey/kafka/kafka_2.13-2.8.2/bin:$PATH
+
+#AWSume alias to source the AWSume script
+alias awsume="source awsume"
+
+#Auto-Complete function for AWSume
+_awsume() {
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts=$(awsume-autocomplete)
+    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    return 0
+}
+complete -F _awsume awsume
 
 export BASH_PROFILE_DONE=true
 
+#export AWS_CA_BUNDLE=/Library/Application\ Support/Netskope/STAgent/data/netskope-cert-bundle.pem
+#export CURL_CA_BUNDLE=/Library/Application\ Support/Netskope/STAgent/data/netskope-cert-bundle.pem
+#export SSL_CERT_FILE=/Library/Application\ Support/Netskope/STAgent/data/netskope-cert-bundle.pem
+#export GIT_SSL_CAPATH=/Library/Application\ Support/Netskope/STAgent/data/netskope-cert-bundle.pem
 
-
-[[ -s "/Users/rdickey/.gvm/scripts/gvm" ]] && source "/Users/rdickey/.gvm/scripts/gvm"
+unset AWS_CA_BUNDLE
+unset CURL_CA_BUNDLE
+unset SSL_CERT_FILE
+unset GIT_SSL_CAPATH
